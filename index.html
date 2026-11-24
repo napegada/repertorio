@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Na Pegada · Repertório</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FBF6EC;
+    --surface: #F1E8D6;
+    --text: #1C2B27;
+    --muted: #5E6F69;
+    --chord: #9A4F00;
+    --line: #DCCFB6;
+    --accent: #1F6B5C;
+    --fs: 1;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0F2A26;
+      --surface: #16372F;
+      --text: #F2E8D5;
+      --muted: #9DB5AD;
+      --chord: #F2B134;
+      --line: #24493F;
+      --accent: #7FD1BC;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F2A26;
+    --surface: #16372F;
+    --text: #F2E8D5;
+    --muted: #9DB5AD;
+    --chord: #F2B134;
+    --line: #24493F;
+    --accent: #7FD1BC;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 150px); }
+  :root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: calc(18px * var(--fs));
+    line-height: 1.45;
+    -webkit-text-size-adjust: 100%;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0 0 auto;
+    height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg);
+  }
+
+  header {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+    background: var(--bg);
+    border-bottom: 2px solid var(--line);
+    padding: 14px 16px 10px;
+  }
+  .top { display: flex; align-items: center; gap: 12px; max-width: 760px; margin: 0 auto; }
+  h1 {
+    font-family: "Big Shoulders Display", Impact, "Arial Narrow", sans-serif;
+    font-weight: 900; font-size: 2.6rem; line-height: .9;
+    margin: 0; letter-spacing: .01em; flex: 1;
+  }
+  h1 small {
+    display: block; font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+    font-weight: 400; font-size: .85rem; color: var(--muted); letter-spacing: 0; margin-top: 4px;
+  }
+  .tools { display: flex; gap: 6px; }
+  button {
+    font: inherit; font-size: 1rem; font-weight: 700;
+    min-width: 44px; height: 44px; padding: 0 10px;
+    border: 2px solid var(--line); border-radius: 10px;
+    background: var(--surface); color: var(--text); cursor: pointer;
+  }
+  button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+  .search { max-width: 760px; margin: 10px auto 0; }
+  input[type="search"] {
+    width: 100%; font: inherit; font-size: 1.05rem;
+    padding: 10px 14px; border-radius: 10px;
+    border: 2px solid var(--line); background: var(--surface); color: var(--text);
+  }
+  input::placeholder { color: var(--muted); }
+
+  nav {
+    max-width: 760px; margin: 10px auto 0;
+    display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    flex: none; text-decoration: none; color: var(--text);
+    font-family: "Big Shoulders Display", Impact, sans-serif; font-weight: 700;
+    font-size: 1.15rem; padding: 4px 12px; border-radius: 999px;
+    border: 2px solid var(--line);
+  }
+
+  main { max-width: 760px; margin: 0 auto; padding: 8px 16px 64px; }
+
+  .bloco h2 {
+    font-family: "Big Shoulders Display", Impact, sans-serif;
+    font-weight: 900; font-size: 1.9rem; margin: 28px 0 4px;
+    color: var(--accent);
+    display: flex; align-items: baseline; gap: 10px;
+  }
+  .bloco h2 span { font-family: "Atkinson Hyperlegible", sans-serif; font-weight: 400; font-size: .9rem; color: var(--muted); }
+
+  .musica { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .musica:last-child { border-bottom: none; }
+  .titulo {
+    font-family: "Big Shoulders Display", Impact, sans-serif;
+    font-weight: 900; font-size: 1.75rem; line-height: 1.05;
+    text-transform: uppercase; margin: 0;
+  }
+  .meta { font-size: .85rem; color: var(--muted); margin-top: 2px; }
+  .acordes { margin-top: 6px; display: grid; gap: 2px; }
+  .acordes div { font-weight: 700; color: var(--chord); font-size: 1.15rem; letter-spacing: .02em; }
+  .acordes em { font-style: normal; font-weight: 400; color: var(--muted); font-size: .85rem; margin-right: 6px; }
+  .comeco { margin-top: 6px; font-style: italic; }
+  .falta { color: var(--muted); font-style: normal; font-size: .9rem; border: 1px dashed var(--line); padding: 2px 8px; border-radius: 6px; display: inline-block; }
+
+  .vazio { text-align: center; color: var(--muted); padding: 40px 0; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <h1>Na Pegada<small id="total">Repertório</small></h1>
+    <div class="tools">
+      <button id="menor" aria-label="Diminuir letra">A−</button>
+      <button id="maior" aria-label="Aumentar letra">A+</button>
+      <button id="tema" aria-label="Trocar tema claro/escuro">◐</button>
+    </div>
+  </div>
+  <div class="search">
+    <input type="search" id="busca" placeholder="Buscar música, acorde ou letra" autocomplete="off">
+  </div>
+  <nav id="atalhos" aria-label="Ir para o bloco"></nav>
+</header>
+
+<main id="lista"></main>
+<p class="vazio hidden" id="vazio">Nenhuma música encontrada. Tente outra palavra.</p>
+
+<script>
+/* =========================================================
+   REPERTÓRIO — pra editar, mexa só aqui.
+   t = título | n = número (opcional) | info = artista/obs (opcional)
+   p = partes: [rótulo, acordes]  (rótulo "" = parte principal)
+   c = começo da letra
+   ========================================================= */
+const REPERTORIO = [
+  { bloco: "1", musicas: [
+    { t: "Tá vendo aquela lua", p: [["", "C - C7 - F - G7"]], c: "Te filmando eu tava…" },
+    { t: "Livre pra voar", p: [["", "C - C7 - F - G7"]], c: "Le le, quando a gente se encontrar…" },
+    { t: "Deixa em off", p: [["", "D - G - Em - A - F#7"]], c: "Eu sei que não era pra gente…" },
+    { t: "É no pagode", p: [["", "Am - Dm - E7"]], c: "Quero ver você abalando no pagode…" },
+    { t: "Champagne", p: [["", "A - Bm - D - Dm"]], c: "Eu virei fiscal, tô vigiando seu perfil…" },
+  ]},
+  { bloco: "2", musicas: [
+    { t: "Manda áudio", p: [["", "G - G9 - F#m7 - D"]], c: "Você me deixou na loucura…" },
+    { t: "Pé na areia", p: [["", "D - D7 - G / Gm"]], c: "Vamos, amor…" },
+    { t: "Lancinho", p: [["", "D - Bm - Em - A7"]], c: "Namora, mas adora…" },
+    { t: "A batucada te pegou", p: [["", "C - C7 - F - G7"]], c: "Não adianta chegar…" },
+    { t: "Tchau e bença", p: [["", "D - Gm - A7 - D"], ["Refrão", "G - F#7 - Bm - D7"]], c: "Eu bem que te falei…" },
+  ]},
+  { bloco: "3", musicas: [
+    { t: "Grades do coração", p: [["", "Am - D7 / G - D7"], ["Refrão", "A - A7 - D - E7"]], c: "Quando eu te vi…" },
+    { t: "Coração radiante", n: "288", p: [["", "C - G - E7 - Am"], ["Refrão", "C - C7 - F - F7"]], c: "Meu coração…" },
+    { t: "Compasso do amor", n: "286", p: [["", "C - G - E7 - Am"]], c: "Quero sentir teu abraço…" },
+    { t: "Temporal", n: "287", p: [["", "Gm, Cm, F7, Bb, D7, G7 e Eb7"], ["Refrão", "Gm - Cm - F7 - Bb - D7"]], c: "Faz tempo que a gente" },
+  ]},
+  { bloco: "4", musicas: [
+    { t: "Sentimento louco", p: [["", "Am - Bm - C - D - Em - G"]], c: "Só queria mais um pouco desse sentimento louco…" },
+    { t: "O que falta em você sou eu", p: [["", " C - G - Dm - Fm "], ["Refrão", "Am - F - C - G - E - Am"]], c: "Falando em saudade, de novo eu acordei pensando…" },
+    { t: "Graveto", p: [["", "Em - D - C"]], c: "Vou ser sincero com você…" },
+  ]},
+  { bloco: "5", musicas: [
+    { t: "Deixa acontecer", p: [["", "D - Bm - Em - A7"]], c: "Deixa acontecer naturalmente…" },
+    { t: "Jogo de sedução", p: [["", "C - C7 - F - Fm"]], c: "Leeee… só você tem o meu amor…" },
+    { t: "Curtindo a vida", p: [["", "Em7 - F#m7 - B7"]], c: "Guere guere…" },
+    { t: "Só vai de camarote", p: [["", "Dm - G7 - Dm - F7 / Em7 - A7"]], c: "Rainha da balada…" },
+    { t: "Não tem pra ninguém", p: [["", "Cm - Bbm7 - Eb7 - Ab7 - Dm - G7"]], c: "Ela quer que eu dou carinho à beça…" },
+  ]},
+  { bloco: "6", musicas: [
+    { t: "É tarde demais", p: [["", "E - F#m / C#m - G#m - A - B7"]], c: "Olha só você…" },
+    { t: "Morango do Nordeste", p: [["", "C - G - Dm - Am"]], c: "Estava tão tristonho…" },
+    { t: "Convite de casamento", p: [["", "C - Em - Am - F - G"]], c: "A gente morou e cresceu…" },
+    { t: "Essa tal liberdade", p: [["", "G - Bm - C - D"]], c: "O que é que eu vou fazer com essa tal liberdade…" },
+  ]},
+  { bloco: "8", musicas: [
+    { t: "Deixa alagar", p: [["", "Gm - Fm - B7 - Cm - D7"]], c: "Lembro da gente…" },
+    { t: "Ai se eu te pego", p: [["", "G - D - Em - C"]], c: "Sábado na balada…" },
+    { t: "Mata o papai", p: [["", "Bb - F - F#m - D"]], c: "Ai ai ai, essa mina tá me olhando…" },
+    { t: "Cilada", p: [["", "Am - G7 - C - Dm - E7"], ["2ª parte", "A - A7 - D - Bm - E7"], ["Refrão", "Am - F7 - E7"]], c: "Quase morri do coração…" },
+  ]},
+  { bloco: "9", musicas: [
+    { t: "Eu e você sempre", n: "318", p: [["", "E - Bm - A - B"]], c: "Logo, logo, assim que puder, vou telefonar…" },
+    { t: "Deus me livre", n: "454", p: [["", "C - G - E7 - Am - Em - F - G7"]], c: "Te amo, mas não quero…" },
+    { t: "Cheia de manias", p: [["", "Gm - F"]], c: "Cheia de manias, toda dengosa…" },
+    { t: "De onde eu venho", p: [["", "E - F#m7 - B7"]], c: "De onde eu venho todo mundo sabe como é…" },
+  ]},
+  { bloco: "10", musicas: [
+    { t: "Vitamina C", p: [["", "Bbm7 - C#7M - Eb - Fm11"]], c: "Ô, mô…" },
+    { t: "Coração Partido", p: [["", "F#m - A - C#m - B"]], c: "eu tentei, ficar com você…" },
+    { t: "P do pecado", p: [["", "C - F - Am - G7"]], c: "Uma ligação fria…" },
+    { t: "O nosso primeiro beijo", p: [["", "C - F - Am - G7"]], c: "eu aposto um beijo…" },
+  ]},
+  { bloco: "11", musicas: [
+    { t: "Mina de fé", info: "Sem Compromisso · tom Gm", p: [["", "Gm - Dm - Eb - Cm - Am7(5-) - D7"], ["Refrão", "Bb - F - Gm - Dm - Eb - Cm - F7"]], c: "Eu era feliz… sem saber…" },
+    { t: "Camisa 10", info: "Turma do Pagode · tom B", p: [["", "C#m - F# - B - G#m"], ["Pré-refrão", "E - A#m7(5-) - G#m - C#7 - F#"], ["Refrão", "E - F# - D#m - G#m - C#m - F# - G#7"]], c: "Se um dia eu disser, que não te amo é que eu te amo…" },
+    { t: "Que situação", info: "Bokaloka · tom B", p: [["", "B - G#m - G - F#7"], ["2ª parte", "G#m - Em - A7 - B - A - G#7 - C#m - F#7"], ["Refrão", "E - Em - G# - C#m - G - F#7"]], c: "Logo que cheguei, parei e vi você…" },
+    { t: "Nem de graça", p: [["", "A - E7 - F#m - D"]], c: "É que não sobrou espaço pra outro alguém…" },
+  ]},
+  { bloco: "12", musicas: [
+    { t: "Velocidade da luz", p: [["", "Gm - C#m - F7 - Bb - D7"]], c: "Eu já não sei mais…" },
+    { t: "Temporal", p: [["", "Gm - Cm - F - F7 - Bb - D7"]], c: "Faz tempo que a gente não é…" },
+    { t: "Falando segredo", p: [["", "Dm - A7 - Gm - A7 - (Bb - A7)"]], c: "Te vejo me olhando com jeitinho diferente…" },
+    { t: "Toda noite", p: [["", "F - Am - Bb - C - Dm"]], c: "Toda noite eu…" },
+    { t: "Valeu", p: [["", "C - C7 - F - G7"]], c: "Valeu… aproveita…" },
+  ]},
+  { bloco: "13", musicas: [
+    { t: "Selinho", p: [["", "A - E - F#m - D"]], c: "Aquela imagem…" },
+    { t: "A gente já não rola", p: [["", "Dm - C7 / Am - D7"], ["Refrão", "Dm - C7 - Am - Cm - F7"]], c: "Já não vou mais…" },
+    { t: "Fugidinha", p: [["", "A - E7 - F#m - D"]], c: "Tô bem na parada…" },
+    { t: "Lapada dela", p: [["", "Em - Am - C - B"]], c: "Me apaixonei por uma menina…" },
+  ]},
+  { bloco: "14", musicas: [
+    { t: "Melhor eu ir", info: "Menos é Mais · pot-pourri em D", p: [["", "D7M - G7M"], ["2ª parte", "Bm7 - F#m7 - G7M - Em7 - Gm6 - C7 - A7"], ["Refrão", "D7M - Gm6"]], c: "Melhor eu ir, tudo bem, vai ser melhor só…" },
+    { t: "Ligando os fatos", info: "Menos é Mais · pot-pourri em D", p: [["", "D - E7 - G7M - D - Em7 - A7"], ["2ª parte", "Bm7 - E7 - G7M - D - Bb - A7"]], c: "Eu sei que deve estar com ele agora…" },
+    { t: "Sonho de amor", info: "Menos é Mais · pot-pourri em D", p: [["", "D7M - A - Bm7 - F#m7 - G7M - Em7 - A7"]], c: "Eu vou me declarar com a voz do coração…" },
+    { t: "Deixa eu te querer", info: "Menos é Mais · pot-pourri em D", p: [["", "D - Em7 - F#m7 - G7M - A7"]], c: "Amor, será? Que vai ser sempre assim com você…" },
+  ]},
+  { bloco: "Final", musicas: [
+    { t: "Pimpolho", info: "Art Popular", p: [["", "G - D - Em - Am - D"], ["2ª parte", "Gm - D"]], c: "O pimpolho é um cara bem legal…" },
+    { t: "Fricote", info: "Art Popular", p: [["", "D7 - G - B7 - Em - D7 - G"], ["Refrão", "G - D7 - G7 - C"]], c: "Você é meu amor, te quero de novo…" },
+    { t: "Dança do bole bole", info: "Exaltasamba", p: [["", "G - E7 - Am - D7"]], c: "Mulherada, que dança é essa…" },
+  ]},
+];
+
+/* ===== daqui pra baixo é o funcionamento da página ===== */
+const lista = document.getElementById("lista");
+const atalhos = document.getElementById("atalhos");
+const busca = document.getElementById("busca");
+const vazio = document.getElementById("vazio");
+const semAcento = s => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+const esc = s => s.replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+let total = 0;
+REPERTORIO.forEach(b => {
+  const sec = document.createElement("section");
+  sec.className = "bloco";
+  sec.id = "bloco-" + b.bloco;
+  sec.innerHTML = `<h2>Bloco ${esc(b.bloco)} <span>${b.musicas.length} músicas</span></h2>`;
+  b.musicas.forEach(m => {
+    total++;
+    const el = document.createElement("article");
+    el.className = "musica";
+    const meta = [m.n ? "nº " + m.n : "", m.info || ""].filter(Boolean).join(" · ");
+    const acordes = m.p.length
+      ? `<div class="acordes">${m.p.map(([r, a]) => `<div>${r ? `<em>${esc(r)}</em>` : ""}${esc(a)}</div>`).join("")}</div>`
+      : `<div class="acordes"><span class="falta">Faltam os acordes</span></div>`;
+    const comeco = m.c ? `<div class="comeco">${esc(m.c)}</div>` : `<div class="comeco"><span class="falta">Falta o começo da letra</span></div>`;
+    el.innerHTML = `<h3 class="titulo">${esc(m.t)}</h3>${meta ? `<div class="meta">${esc(meta)}</div>` : ""}${acordes}${comeco}`;
+    el.dataset.busca = semAcento([m.t, m.info || "", m.n || "", m.c, m.p.map(x => x.join(" ")).join(" ")].join(" "));
+    sec.appendChild(el);
+  });
+  lista.appendChild(sec);
+
+  const a = document.createElement("a");
+  a.href = "#bloco-" + b.bloco;
+  a.textContent = "Bloco " + b.bloco;
+  atalhos.appendChild(a);
+});
+document.getElementById("total").textContent = `Repertório · ${total} músicas`;
+
+busca.addEventListener("input", () => {
+  const q = semAcento(busca.value.trim());
+  let achou = 0;
+  document.querySelectorAll(".bloco").forEach(sec => {
+    let noBloco = 0;
+    sec.querySelectorAll(".musica").forEach(m => {
+      const ok = !q || m.dataset.busca.includes(q);
+      m.classList.toggle("hidden", !ok);
+      if (ok) noBloco++;
+    });
+    sec.classList.toggle("hidden", noBloco === 0);
+    achou += noBloco;
+  });
+  vazio.classList.toggle("hidden", achou > 0);
+});
+
+/* tamanho da letra e tema, lembrados no aparelho */
+const raiz = document.documentElement;
+const ler = k => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+const gravar = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
+let fs = parseFloat(ler("np-fs")) || 1;
+const aplicarFs = () => raiz.style.setProperty("--fs", fs);
+aplicarFs();
+document.getElementById("maior").onclick = () => { fs = Math.min(1.8, +(fs + 0.1).toFixed(1)); aplicarFs(); gravar("np-fs", fs); };
+document.getElementById("menor").onclick = () => { fs = Math.max(0.8, +(fs - 0.1).toFixed(1)); aplicarFs(); gravar("np-fs", fs); };
+
+const temaSalvo = ler("np-tema");
+if (temaSalvo) raiz.dataset.theme = temaSalvo;
+document.getElementById("tema").onclick = () => {
+  const escuroAgora = raiz.dataset.theme
+    ? raiz.dataset.theme === "dark"
+    : matchMedia("(prefers-color-scheme: dark)").matches;
+  raiz.dataset.theme = escuroAgora ? "light" : "dark";
+  gravar("np-tema", raiz.dataset.theme);
+};
+</script>
+</body>
+</html>
